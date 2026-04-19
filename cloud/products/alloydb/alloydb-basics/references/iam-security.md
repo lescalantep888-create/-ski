@@ -90,5 +90,4 @@ AlloyDB uses a managed service agent
 resources like storage and backups. Ensure this agent has the necessary
 permissions in your project.
 
-For more information, see: [AlloyDB Security
-Overview](https://cloud.google.com/alloydb/docs/security).
+For more information, see: [Security, privacy, risk, and compliance for AlloyDB for PostgreSQL](https://docs.cloud.google.com/alloydb/docs/security-privacy-compliance).
