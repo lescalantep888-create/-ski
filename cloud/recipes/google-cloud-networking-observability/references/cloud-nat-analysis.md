@@ -13,11 +13,18 @@ high-volume trends. Fallback to the CLI if the MCP tools are not available.
 
 **Tool**: `list_log_entries`
 
-**Filter**: `text resource.type="nat_gateway"
-logName="projects/{project_id}/logs/compute.googleapis.com%2Fnat_flows"`
+**Filter**:
 
-Filter for dropped packets (potential port exhaustion): `text
-jsonPayload.allocation_status="DROPPED"`
+```text
+resource.type="nat_gateway"
+logName="projects/{project_id}/logs/compute.googleapis.com%2Fnat_flows"
+```
+
+Filter for dropped packets (potential port exhaustion):
+
+```text
+jsonPayload.allocation_status="DROPPED"
+```
 
 ### 2. Aggregate Trends ([BigQuery MCP](mcp-usage.md#bigquery-mcp))
 
@@ -27,9 +34,9 @@ jsonPayload.allocation_status="DROPPED"`
 
 ```sql
 SELECT
-JSON_VALUE(jsonPayload.gateway_details.internal_ip) AS internal_ip, COUNT(*) AS
+JSON_VALUE(json_payload.gateway_details.internal_ip) AS internal_ip, COUNT(*) AS
 drop_count FROM `{project_id}.{dataset_id}._AllLogs` WHERE log_name LIKE
-'%nat_flows%' AND JSON_VALUE(jsonPayload.allocation_status) = 'DROPPED' GROUP BY
+'%nat_flows%' AND JSON_VALUE(json_payload.allocation_status) = 'DROPPED' GROUP BY
 1 ORDER BY drop_count DESC LIMIT 10
 ```
 
@@ -54,12 +61,12 @@ gcloud logging read 'resource.type="nat_gateway" AND logName="projects/{project_
 ```bash
 bq query --use_legacy_sql=false --project_id {project_id} '
 SELECT
-  JSON_VALUE(jsonPayload.gateway_details.internal_ip) AS internal_ip,
+  JSON_VALUE(json_payload.gateway_details.internal_ip) AS internal_ip,
   COUNT(*) AS drop_count
 FROM `{project_id}.{dataset_id}._AllLogs`
 WHERE
   log_name LIKE "%nat_flows%"
-  AND JSON_VALUE(jsonPayload.allocation_status) = "DROPPED"
+  AND JSON_VALUE(json_payload.allocation_status) = "DROPPED"
 GROUP BY 1
 ORDER BY drop_count DESC
 LIMIT 10

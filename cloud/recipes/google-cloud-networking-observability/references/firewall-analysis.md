@@ -22,20 +22,32 @@ high-volume trends. Fallback to the CLI if the MCP tools are not available.
 
 **Tool**: `list_log_entries`
 
-**Filter**: `text resource.type="gce_subnetwork"
-logName="projects/{project_id}/logs/compute.googleapis.com%2Ffirewall"`
+**Filter**:
 
-Filter for denied packets: `text jsonPayload.rule_details.action="DENY"`
+```text
+resource.type="gce_subnetwork"
+logName="projects/{project_id}/logs/compute.googleapis.com%2Ffirewall"
+```
+
+Filter for denied packets:
+
+```
+text jsonPayload.rule_details.action="DENY"
+```
 
 ### 2. Aggregate Trends ([BigQuery MCP](mcp-usage.md#bigquery-mcp))
 
 **Tool**: `execute_sql`
 
-**SQL Pattern**: ``sql SELECT JSON_VALUE(jsonPayload.rule_details.reference) AS
+**SQL Pattern**:
+
+```sql
+SELECT JSON_VALUE(jsonPayload.rule_details.reference) AS
 rule_name, COUNT(*) AS block_count FROM `{project_id}.{dataset_id}._AllLogs`
 WHERE log_name LIKE '%firewall%' AND
 JSON_VALUE(jsonPayload.rule_details.action) = 'DENY' GROUP BY 1 ORDER BY
-block_count DESC LIMIT 10``
+block_count DESC LIMIT 10
+```
 
 ### 3. CLI Fallback
 
@@ -58,12 +70,12 @@ gcloud logging read 'resource.type="gce_subnetwork" AND logName="projects/{proje
 ```bash
 bq query --use_legacy_sql=false --project_id {project_id} '
 SELECT
-  JSON_VALUE(jsonPayload.rule_details.reference) AS rule_name,
+  JSON_VALUE(json_payload.rule_details.reference) AS rule_name,
   COUNT(*) AS block_count
 FROM `{project_id}.{dataset_id}._AllLogs`
 WHERE
   log_name LIKE "%firewall%"
-  AND JSON_VALUE(jsonPayload.rule_details.action) = "DENY"
+  AND JSON_VALUE(json_payload.rule_details.action) = "DENY"
 GROUP BY 1
 ORDER BY block_count DESC
 LIMIT 10

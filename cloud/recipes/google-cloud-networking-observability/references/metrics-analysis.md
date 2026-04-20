@@ -28,9 +28,8 @@
 ## Distribution Parsing Standard
 
 When querying metrics of type DISTRIBUTION (like RTT), align the data with
-`ALIGN_PERCENTILE_50` or `ALIGN_MEAN` to ensure the output can be parsed as a
-simple numeric value. If using default alignment, you MUST parse the
-`distributionValue` (which contains mean and count) rather than `doubleValue`.
+`ALIGN_PERCENTILE_50` to ensure the output can be parsed as a simple numeric
+value.
 
 ## Dynamic Discovery
 
@@ -58,7 +57,7 @@ simple numeric value. If using default alignment, you MUST parse the
     "interval.startTime={start_time}&" \
     "interval.endTime={end_time}&" \
     "aggregation.alignmentPeriod=3600s&" \
-    "aggregation.perSeriesAligner=ALIGN_MEAN" \
+    "aggregation.perSeriesAligner=ALIGN_PERCENTILE_50" \
     | jq '.timeSeries[] | {metric: .metric.type, points: .points[:5]}'
     ```
 

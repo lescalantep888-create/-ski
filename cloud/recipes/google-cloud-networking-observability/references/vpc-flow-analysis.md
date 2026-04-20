@@ -63,9 +63,9 @@ gcloud logging read '(logName:"projects/{project_id}/logs/compute.googleapis.com
 bq query --use_legacy_sql=false --project_id {project_id} '
 SELECT
   timestamp,
-  JSON_VALUE(jsonPayload.connection.src_ip) AS src_ip,
-  JSON_VALUE(jsonPayload.connection.dest_ip) AS dest_ip,
-  CAST(JSON_VALUE(jsonPayload.bytes_sent) AS INT64) AS bytes_sent
+  JSON_VALUE(json_payload.connection.src_ip) AS src_ip,
+  JSON_VALUE(json_payload.connection.dest_ip) AS dest_ip,
+  CAST(JSON_VALUE(json_payload.bytes_sent) AS INT64) AS bytes_sent
 FROM `{project_id}.{dataset_id}._AllLogs`
 WHERE
   log_name IN (
@@ -94,19 +94,19 @@ It allows you to:
     uncertain of the casing (for example, `jsonPayload` versus `json_payload`),
     you MUST run `bq show --schema <source>`.
 -   **Latency Aggregation**: The primary field for RTT analysis in VPC Flow logs
-    is `jsonPayload.round_trip_time.median_msec`. This field offers
+    is `json_payload.round_trip_time.median_msec`. This field offers
     sub-millisecond precision and covers both TCP and Falcon traffic. Filter by
     `reporter` (`SRC` or `DEST`) to avoid double-counting traffic volume.
 
-    For TCP-only traffic, you can also use `jsonPayload.rtt_msec`, which
+    For TCP-only traffic, you can also use `json_payload.rtt_msec`, which
     provides RTT in whole milliseconds. While less precise and with narrower
     coverage than `round_trip_time.median_msec`, it can be aggregated as
     follows:
 
     ```sql
     SELECT
-      AVG(jsonPayload.rtt_msec) AS average_rtt_msec,
-      MAX(jsonPayload.rtt_msec) AS max_rtt_msec
+      AVG(json_payload.rtt_msec) AS average_rtt_msec,
+      MAX(json_payload.rtt_msec) AS max_rtt_msec
     FROM ...
     ```
 
