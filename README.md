@@ -1,37 +1,23 @@
-# Agent Skills 
+sh-install-green)](https://skills.sh/google/skills)
+s.io/home) for Google products and technologies, including [Google Cloud](https://cloud.google.com).
 
-[![Install via skills.sh](https://img.shields.io/badge/skills.sh-install-green)](https://skills.sh/google/skills)
-
-This repository contains [Agent Skills](https://agentskills.io/home) for Google products and technologies, including [Google Cloud](https://cloud.google.com).
-
-> [!NOTE]
-> This repository is under active development.
+> [!
+> This repository e development.
 
 
 ## Installation
 
 ```bash
-npx skills add google/skills
-```
+npx ski`
 
-From the `npx install` command, you can select the specific skills from this
+From the `npx instommand, you can select the specific skills from this
 repo to install.
 
 ## Available Skills
 
-- [**Gemini API in Agent Platform**](./skills/cloud/gemini-api)
-- [**AlloyDB Basics**](./skills/cloud/alloydb-basics)
-- [**BigQuery Basics**](./skills/cloud/bigquery-basics)
-- [**Cloud Run Basics**](./skills/cloud/cloud-run-basics)
-- [**Cloud SQL Basics**](./skills/cloud/cloud-sql-basics)
-- [**Firebase Basics**](./skills/cloud/firebase-basics)
-- [**Kubernetes Engine (GKE) Basics**](./skills/cloud/gke-basics)
-- [**Recipe: Onboarding to Google Cloud**](./skills/cloud/google-cloud-recipe-onboarding)
-- [**Recipe: Authenticating to Google Cloud**](./skills/cloud/google-cloud-recipe-auth)
-- [**Recipe: Google Cloud Network Observability**](./skills/cloud/google-cloud-networking-observability)
-- [**Google Cloud Well-Architected Framework: Security**](./skills/cloud/google-cloud-waf-security)
-- [**Google Cloud Well-Architected Framework: Reliability**](./skills/cloud/google-cloud-waf-reliability)
-- [**Google Cloud Well-Architected Framework: Cost Optimization**](./skills/cloud/google-cloud-waf-cost-optimization)
+- [**Gemini Aework: Security**](./skills/cloud/google-cloud-waf-security)
+- [**Google itected Framework: Reliability**](./skills/cloud/google-cloud-waf-reliability)
+ Framework: Cost Optimization**](./skills/cloud/google-cloud-waf-cost-optimization)
 
 ## Support
 
